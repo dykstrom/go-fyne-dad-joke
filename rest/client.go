@@ -2,7 +2,6 @@ package rest
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"math/rand/v2"
 	"net/http"
@@ -38,7 +37,7 @@ func GetRandomJokeBySearchTerm(searchTerm string) (*Joke, error) {
 		return nil, err
 	}
 	if jokeList.TotalJokes == 0 {
-		return nil, errors.New("No jokes about '" + searchTerm + "' found.")
+		return nil, fmt.Errorf("no jokes about '%s' found", searchTerm)
 	}
 
 	// Choose a random joke
@@ -82,7 +81,7 @@ func getAndMapData(request *resty.Request, url string, v any) error {
 		return err
 	}
 	if response.StatusCode() != http.StatusOK {
-		return errors.New(fmt.Sprintf("Server returned status %d", response.StatusCode()))
+		return fmt.Errorf("server returned status %d", response.StatusCode())
 	}
 	return json.Unmarshal(response.Body(), v)
 }

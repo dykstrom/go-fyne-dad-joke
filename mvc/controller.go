@@ -28,7 +28,7 @@ func handleSearchAction(view *View) {
 			joke, err = rest.GetRandomJokeBySearchTerm(searchTerm)
 		}
 		if err != nil {
-			view.TextArea.SetText(fmt.Sprintf("Failed to get joke: %v", err))
+			view.TextArea.SetText(fmt.Sprintf("Failed to get joke: %s.", err))
 			return
 		}
 
